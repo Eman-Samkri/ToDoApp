@@ -3,11 +3,11 @@
 
     <item
         android:id="@+id/HomeFragment"
-        android:title="Home" />
+        android:title="@string/Home_menu" />
     <item
         android:id="@+id/TaskFragment"
-        android:title="add Task" />
+        android:title="@string/add_List_menu" />
     <item
         android:id="@+id/TaskListFragment"
-        android:title="List" />
+        android:title="@string/List_menu" />
 </menu>

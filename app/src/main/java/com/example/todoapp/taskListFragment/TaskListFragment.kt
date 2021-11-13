@@ -1,14 +1,11 @@
 package com.example.todoapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,7 +18,6 @@ import com.example.todoapp.HomeFragment.KEY_WORK
 import com.example.todoapp.database.Task
 import com.example.todoapp.taskFragment.TaskFragment
 import com.example.todoapp.taskListFragment.TaskListViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
 const val KEY_ID = "myTaskId"
@@ -32,6 +28,7 @@ class TaskListFragment : Fragment() {
 
     private lateinit var taskRecyclerView: RecyclerView
     private lateinit var nothingToShow : ImageView
+    private lateinit var nothingToShowText:TextView
     private var task = listOf<Task>()
     val currentDate = Date()
 
@@ -82,6 +79,7 @@ class TaskListFragment : Fragment() {
 
         taskRecyclerView = view.findViewById(R.id.tasks_recycler_Id)
         nothingToShow = view.findViewById(R.id.nothing_id)
+        nothingToShowText = view.findViewById(R.id.nothingTv_id)
 
         val  linearLayoutManager = LinearLayoutManager(context)
         taskRecyclerView.layoutManager = linearLayoutManager
@@ -187,6 +185,7 @@ class TaskListFragment : Fragment() {
         val taskAdapter = Adapter(tasks)
         if (tasks.isEmpty())  {
             nothingToShow.visibility = View.VISIBLE
+            nothingToShowText.visibility = View.VISIBLE
         }else{
             taskRecyclerView.adapter = taskAdapter
 
@@ -204,7 +203,7 @@ class TaskListFragment : Fragment() {
         private val descriptionTv: TextView = itemView.findViewById(R.id.editTextDescription_id)
         private val category: TextView = itemView.findViewById(R.id.catogory_id)
         private val type: View = itemView.findViewById(R.id.type_id)
-        private val due_date_alart :View = itemView.findViewById(R.id.due_date_aert)
+        private val due_date_alart :View = itemView.findViewById(R.id.due_date_alert)
 
 
         fun bind(task: Task) {
@@ -243,7 +242,7 @@ class TaskListFragment : Fragment() {
             task.due_date?.let {
                 if (currentDate.after(it))
                 {
-                    due_date_alart.setBackgroundResource(getColor(0))
+                    due_date_alart.setBackgroundResource(R.color.due_date_co)
                 }
             }
         }
@@ -253,7 +252,6 @@ class TaskListFragment : Fragment() {
         }
 
         override fun onClick(v: View?) {
-            Log.d("eman","eman")
            if (v == itemView ){
                 val args = Bundle()
                 args.putInt(KEY_ID,task.id)

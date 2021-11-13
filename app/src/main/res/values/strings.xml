@@ -1,5 +1,27 @@
 <resources>
-    <string name="app_name">toDoApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">To Do</string>
+    <string name="nothing">You are all done!!</string>
+
+    <string name="Due_Date_menu">Due Date</string>
+    <string name="alpha_menu">Alphabetical</string>
+    <string name="Creation_Date_menu">Creation Date</string>
+    <string name="last_Creation_date">Last Creation date</string>
+
+    <string name="Home_menu">Home</string>
+    <string name="add_List_menu">Add Task</string>
+    <string name="List_menu">List</string>
+
+    <string name="Title_item">Title</string>
+    <string name="Description_item">Description</string>
+
+    <string name="hint_add_title">Name your task</string>
+    <string name="hint_add_Description">Description</string>
+    <string name="work_catigory">Work</string>
+    <string name="Personal_category">Personal</string>
+    <string name="Health_category">Health</string>
+    <string name="Social_category">Social</string>
+    <string name="Save_Task_btn">Save Task</string>
+    <string name="Update_Btn">Update</string>
+    <string name="Choose_Category_Tv">Choose Category</string>
+    <string name="Write_Short_description">Write Short description</string>
 </resources>
