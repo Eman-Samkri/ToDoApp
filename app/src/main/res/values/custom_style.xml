@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="circle">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="SpecificCornerRoundedTopR">
+        <item name="cornerSizeTopRight">100%</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+    </style>
+
+    <style name="SpecificCornerRoundedTopL">
+        <item name="cornerSizeTopLeft">100%</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+    </style>
+
+    <style name="SpecificCornerRoundedBottomR">
+        <item name="cornerSizeBottomRight">100%</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+    </style>
+
+    <style name="SpecificCornerRoundedBottomL">
+        <item name="cornerSizeBottomLeft">100%</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+    </style>
+
+</resources>

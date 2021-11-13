@@ -13,7 +13,7 @@
 
         <View
             android:id="@+id/type_id"
-            android:layout_width="8dp"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:background="@color/purple_200" />
 

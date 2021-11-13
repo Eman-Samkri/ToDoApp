@@ -8,7 +8,7 @@ import java.util.*
 import java.util.concurrent.Executors
 
 
-private const val DATABASE_NAME = "taskdatabase"
+private const val DATABASE_NAME = "taskDatabase"
 
 class TaskRepository private constructor(context: Context){
 
@@ -29,9 +29,6 @@ class TaskRepository private constructor(context: Context){
         return taskDao.getTask(id)
     }
 
-    fun getTaskByWork(category: Int): LiveData<List<Task>>{
-        return taskDao.getTaskByWork(category)
-    }
 
     fun updateTask(task: Task){
         executor.execute {
@@ -39,6 +36,7 @@ class TaskRepository private constructor(context: Context){
         }
 
     }
+
 
     fun addTask( task:Task){
         executor.execute{
@@ -51,6 +49,7 @@ class TaskRepository private constructor(context: Context){
             taskDao.deleteTask(id)
         }
     }
+
 
     companion object{
         private  var INSTANCE:TaskRepository? = null

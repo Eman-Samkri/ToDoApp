@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.example.todoapp.KEY_ID
 import com.example.todoapp.R
@@ -16,13 +17,14 @@ import com.example.todoapp.taskFragment.TaskFragmentViewModel
 
 const val KEY_WORK = "kdk"
 const val KEY_PERSONAL ="KEY personal"
-
+const val KEY_HEALTH ="KEY HEALTH"
+const val KEY_SOCIAL ="KEY FUN"
 class HomeFragment : Fragment() {
     private lateinit var workBtn:Button
     private lateinit var personalBtn:Button
+    private lateinit var healthBtn :Button
+    private lateinit var socialBtn :Button
 
-    private val fragmentHomeViewModel by lazy { ViewModelProvider(this)
-        .get(HomeFragmentViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,20 +33,14 @@ class HomeFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
         workBtn = view.findViewById(R.id.work_id_home)
         personalBtn=view.findViewById(R.id.personal_id_home)
+        healthBtn = view.findViewById(R.id.health_id_home)
+        socialBtn = view.findViewById(R.id.social_id_home)
 
 
         return view
     }
 
-    private fun replaceFragment(fragment: Fragment){
 
-
-        activity?.let {
-            it.supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container,fragment)
-                .commit()
-        }
-    }
 
     override fun onStart() {
         super.onStart()
@@ -59,7 +55,21 @@ class HomeFragment : Fragment() {
         }
 
         personalBtn.setOnClickListener {
-            args.putString(KEY_PERSONAL,"kk")
+            args.putString(KEY_PERSONAL,"personal")
+            val fragment = TaskListFragment()
+            fragment.arguments = args
+            replaceFragment(fragment)
+        }
+
+        healthBtn.setOnClickListener {
+            args.putString(KEY_HEALTH,"HEALTH")
+            val fragment = TaskListFragment()
+            fragment.arguments = args
+            replaceFragment(fragment)
+        }
+
+        socialBtn.setOnClickListener {
+            args.putString(KEY_SOCIAL,"SOCIAL")
             val fragment = TaskListFragment()
             fragment.arguments = args
             replaceFragment(fragment)
@@ -68,6 +78,14 @@ class HomeFragment : Fragment() {
 
 
 
+    private fun replaceFragment(fragment: Fragment){
 
+
+        activity?.let {
+            it.supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container,fragment)
+                .commit()
+        }
+    }
 
 }

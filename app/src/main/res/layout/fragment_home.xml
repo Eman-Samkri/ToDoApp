@@ -1,109 +1,131 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    >
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="405dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/screen_background_dark" />
+
     <TextView
-        android:id="@+id/txt9"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_centerInParent="true"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
         android:gravity="center"
-        android:text="9"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        />
+        android:maxLines="1"
+        android:text="Done"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Live"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="44dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Archived"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/work_id_home"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_above="@id/txt9"
-        android:layout_alignLeft="@id/txt9"
+        android:id="@+id/health_id_home"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="56dp"
+        android:backgroundTint="@color/health"
         android:gravity="center"
-        android:text="1"
+        android:text="health"
         android:textColor="#000000"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:shapeAppearanceOverlay="@style/SpecificCornerRoundedTopR"
+        app:strokeColor="@color/black"
+        app:strokeWidth="3dp" />
 
     <Button
         android:id="@+id/personal_id_home"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignTop="@id/work_id_home"
-        android:layout_toRightOf="@id/work_id_home"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="@color/personal"
         android:gravity="center"
         android:text="8"
         android:textColor="#000000"
         android:textSize="40sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/txt2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignTop="@id/txt9"
-        android:layout_toLeftOf="@id/txt9"
-        android:gravity="center"
-        android:text="2"
-        android:textSize="40sp"
         android:textStyle="bold"
-        android:textColor="#000000"        />
-    <TextView
-        android:id="@+id/txt3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_below="@id/txt2"
-        android:layout_toLeftOf="@id/txt9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:shapeAppearanceOverlay="@style/SpecificCornerRoundedTopL"
+        app:strokeColor="@color/black"
+        app:strokeWidth="3dp" />
+
+    <Button
+        android:id="@+id/work_id_home"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="392dp"
+        android:backgroundTint="@color/work"
         android:gravity="center"
         android:text="3"
+        android:textColor="#000000"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:textColor="#000000"        />
-    <TextView
-        android:id="@+id/txt4"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_below="@id/txt9"
-        android:layout_alignLeft="@id/txt9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/SpecificCornerRoundedBottomL"
+        app:strokeColor="@color/black"
+        app:strokeWidth="3dp" />
+
+    <Button
+        android:id="@+id/social_id_home"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="392dp"
+        android:layout_marginEnd="56dp"
+        android:backgroundTint="@color/social"
         android:gravity="center"
-        android:text="4"
+        android:text="3"
+        android:textColor="#000000"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:textColor="#000000"        />
-    <TextView
-        android:id="@+id/txt5"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignTop="@id/txt4"
-        android:layout_toRightOf="@id/txt4"
-        android:gravity="center"
-        android:text="5"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:textColor="#000000"        />
-    <TextView
-        android:id="@+id/txt7"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignTop="@id/txt9"
-        android:layout_toRightOf="@id/txt9"
-        android:gravity="center"
-        android:text="7"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:textColor="#000000"        />
-    <TextView
-        android:id="@+id/txt6"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_below="@id/txt7"
-        android:layout_toRightOf="@id/txt9"
-        android:gravity="center"
-        android:text="6"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:textColor="#000000"        />
-</RelativeLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/SpecificCornerRoundedBottomR"
+        app:strokeColor="@color/black"
+        app:strokeWidth="3dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

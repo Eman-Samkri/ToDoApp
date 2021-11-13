@@ -6,13 +6,16 @@ import androidx.fragment.app.Fragment
 import com.example.todoapp.HomeFragment.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-private val homeFragment = HomeFragment()
-private val TaskFragment = com.example.todoapp.taskFragment.TaskFragment()
-private val ListFragment = TaskListFragment()
+
 
 private lateinit var bottomNavigationView: BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
+    private val homeFragment = HomeFragment()
+    private val TaskFragment = com.example.todoapp.taskFragment.TaskFragment()
+    private val ListFragment = TaskListFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-      fun replaceFragment(fragment: Fragment){
+      private fun replaceFragment(fragment: Fragment){
 
         if (fragment != null){
             val transaction = supportFragmentManager.beginTransaction()

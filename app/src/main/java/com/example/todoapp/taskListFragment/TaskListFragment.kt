@@ -2,10 +2,9 @@ package com.example.todoapp
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -15,25 +14,64 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.HomeFragment.KEY_HEALTH
 import com.example.todoapp.HomeFragment.KEY_PERSONAL
+import com.example.todoapp.HomeFragment.KEY_SOCIAL
 import com.example.todoapp.HomeFragment.KEY_WORK
 import com.example.todoapp.database.Task
 import com.example.todoapp.taskFragment.TaskFragment
 import com.example.todoapp.taskListFragment.TaskListViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
 const val KEY_ID = "myTaskId"
-const val KEY_ID_UPDATE = "myTaskId"
+const val KEY_ID_UPDATE = "myTaskId for Update btn"
+const val KEY_IS_COMPLETED = "is completed"
 
 class TaskListFragment : Fragment() {
 
     private lateinit var taskRecyclerView: RecyclerView
-    private var Task = listOf<Task>()
-   // private lateinit var task: Task
-    val current_date = Date()
+    private lateinit var nothingToShow : ImageView
+    private var task = listOf<Task>()
+    val currentDate = Date()
 
 
     private val taskListViewModel by lazy { ViewModelProvider(this).get(TaskListViewModel::class.java) }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.action_bar,menu)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.due_date_menu_id -> {
+                updateUI(task.filterNot { it.due_date == null }.sortedBy { it.due_date })
+                true
+            }
+            R.id.alpha_id -> {
+                updateUI(task.sortedBy {it.title})
+                true
+            }
+            R.id.creation_date_id -> {
+                updateUI(task.sortedBy {it.creation_date})
+                true
+            }
+
+            R.id.last_creation_date_menu_id -> {
+                updateUI(task.sortedByDescending {it.creation_date})
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +81,8 @@ class TaskListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_list,container,false)
 
         taskRecyclerView = view.findViewById(R.id.tasks_recycler_Id)
+        nothingToShow = view.findViewById(R.id.nothing_id)
+
         val  linearLayoutManager = LinearLayoutManager(context)
         taskRecyclerView.layoutManager = linearLayoutManager
         return view
@@ -54,46 +94,49 @@ class TaskListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         taskListViewModel.liveDataTask.observe(
             viewLifecycleOwner, Observer {
-                //updateUI(it)
-                Task = it
-                if(it.isEmpty()){
+
+                task = it.filterNot { it.isCompleted }
+                if(task.isEmpty()){
                     taskRecyclerView.visibility = View.GONE
                 }else {
                     taskRecyclerView.visibility = View.VISIBLE
                 }
 
-                updateUI(it)
+                updateUI(task)
 
-                val taskId = arguments?.getInt(KEY_WORK,1)
-                val taskId2 = arguments?.getString(KEY_PERSONAL)
-                if (taskId!=null) {
-                    updateUI(it.filter { it.category ==2 })
+                swapItem()
+
+                val taskWork = arguments?.getInt(KEY_WORK,1)
+                val taskPersonal = arguments?.getString(KEY_PERSONAL)
+                val taskHealth = arguments?.getString(KEY_HEALTH)
+                val taskSocial = arguments?.getString(KEY_SOCIAL)
+
+                if (taskWork!=null) {
+                    setMenuVisibility(false)
+                    updateUI(task.filter { it.category ==1 })
                 }
-                if (taskId2 !=null){
-                    updateUI(it.filter { it.category ==1 })
+                if (taskPersonal !=null){
+                    setMenuVisibility(false)
+                    updateUI(task.filter { it.category ==2 })
                 }
+                if (taskHealth !=null){
+                    setMenuVisibility(false)
+                    updateUI(task.filter { it.category ==3 })
+                }
+                if (taskSocial !=null){
+                    setMenuVisibility(false)
+                    updateUI(task.filter { it.category ==4 })
+                }
+
+
 
             }
         )
 
 
-
-        swapItem()
-
     }
 
 
-
-//    override fun onOptionsItemSelected(item: MenuItem){
-//        return when(item.itemId){
-//            R.id.due_date_id -> {
-//                Task.sortedBy { it.due_date }
-//            }
-//
-//
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
 
     private fun swapItem() {
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
@@ -111,14 +154,26 @@ class TaskListFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when(direction){
                     ItemTouchHelper.LEFT -> {
-                        val currentTask = Task[viewHolder.adapterPosition]
+                        val currentTask = task[viewHolder.adapterPosition]
                         taskListViewModel.deleteTask(currentTask.id)
                         Toast.makeText(activity, "Task deleted", Toast.LENGTH_SHORT).show()
                     }
                     ItemTouchHelper.RIGHT -> {
+                        val currentTask = task[viewHolder.adapterPosition]
+                        currentTask.isCompleted = true
 
-                        val currentTask = Task[viewHolder.adapterPosition]
-                        taskListViewModel.deleteTask(currentTask.id)
+                        val args = Bundle()
+                        args.putBoolean(KEY_IS_COMPLETED,true)
+                        args.putInt(KEY_ID,currentTask.id)
+                        val fragment = TaskFragment()
+                        fragment.arguments = args
+
+                        activity?.let {
+                            it.supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container,fragment)
+                                .commit()
+                        }
+
                         Toast.makeText(activity, "Task completed", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -130,7 +185,12 @@ class TaskListFragment : Fragment() {
 
     private fun updateUI(tasks: List<Task>) {
         val taskAdapter = Adapter(tasks)
-        taskRecyclerView.adapter = taskAdapter
+        if (tasks.isEmpty())  {
+            nothingToShow.visibility = View.VISIBLE
+        }else{
+            taskRecyclerView.adapter = taskAdapter
+
+        }
     }
 
 
@@ -149,39 +209,39 @@ class TaskListFragment : Fragment() {
 
         fun bind(task: Task) {
             this.task = task
-             titleTv.text = task.title
+            titleTv.text = task.title
             descriptionTv.text = task.Description
-            // titleTv.setTextColor(context.resources.getColor(getColor(task.priority)))
             type.setBackgroundResource(getColor(task.category))
             category.text = getType(task.category)
+
             compareDate()
-
-
         }
 
 
 
         private fun getColor(category: Int):Int {
             return when (category) {
-                0 -> R.color.purple_700
-                1 -> R.color.purple_200
-                2 -> R.color.purple_500
-                else -> R.color.teal_200
+                1 -> R.color.work
+                2 -> R.color.personal
+                3 -> R.color.health
+                4 -> R.color.social
+                else -> R.color.work
             }
         }
 
         private fun getType(category: Int):String {
             return when (category) {
-                0 -> "Work"
-                1 -> "Personal"
-                2 -> "Health"
+                1 -> "Work"
+                2 -> "Personal"
+                3 -> "Health"
+                4 -> "Social"
                 else -> "Work"
             }
         }
 
         private fun compareDate(){
             task.due_date?.let {
-                if (current_date.after(it))
+                if (currentDate.after(it))
                 {
                     due_date_alart.setBackgroundResource(getColor(0))
                 }

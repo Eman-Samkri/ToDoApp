@@ -15,9 +15,13 @@ class TaskListViewModel : ViewModel(){
         taskRepository.deleteTask(id)
     }
 
-    fun byCategory (category: Int) : LiveData<List<Task>> {
-        return taskRepository.getTaskByWork(category)
+    fun saveUpdate(task:Task){
+        taskRepository.updateTask(task)
     }
+
+
+
+
 
 
 }
