@@ -8,7 +8,7 @@ import java.util.*
 import java.util.concurrent.Executors
 
 
-private const val DATABASE_NAME = "taskDatabase"
+private const val DATABASE_NAME = "task--"
 
 class TaskRepository private constructor(context: Context){
 

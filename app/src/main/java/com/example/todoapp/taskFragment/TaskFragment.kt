@@ -74,10 +74,32 @@ class TaskFragment : Fragment() , DatePickerDialogFragment.DatePickerCallback{
         editTextDescription.setOnClickListener { task.Description }
         saveBtn.setOnClickListener { saveTask() }
         updateBtn.setOnClickListener { updateTask() }
-        work.setOnClickListener { task.category = 1; work.setBackgroundResource(R.color.work) }
-        personal.setOnClickListener { task.category = 2 ; personal.setBackgroundResource(R.color.personal) }
-        health.setOnClickListener { task.category = 3 ; health.setBackgroundResource(R.color.health) }
-        social.setOnClickListener { task.category = 4; social.setBackgroundResource(R.color.social) }
+        work.setOnClickListener {
+            task.category = 1
+            work.setBackgroundResource(R.color.work)
+            personal.visibility=View.GONE
+            health.visibility =View.GONE
+            social.visibility=View.GONE
+        }
+        personal.setOnClickListener {
+            task.category = 2
+            personal.setBackgroundResource(R.color.personal)
+            work.visibility=View.GONE
+            health.visibility =View.GONE
+            social.visibility=View.GONE
+        }
+        health.setOnClickListener {
+            task.category = 3
+            health.setBackgroundResource(R.color.health)
+            personal.visibility=View.GONE
+            work.visibility =View.GONE
+            social.visibility=View.GONE}
+        social.setOnClickListener {
+            task.category = 4
+            social.setBackgroundResource(R.color.social)
+            personal.visibility=View.GONE
+            health.visibility =View.GONE
+            work.visibility=View.GONE}
 
         dateBtn.setOnClickListener {
             val args = Bundle()
@@ -130,8 +152,11 @@ class TaskFragment : Fragment() , DatePickerDialogFragment.DatePickerCallback{
             task.title = title
             task.Description = description
 
-            val taskIsComplete = arguments?.getBoolean(KEY_IS_COMPLETED)
-            taskIsComplete?.let { task.isCompleted =true }
+            val taskIsComplete = arguments?.getString(KEY_IS_COMPLETED)
+            val taskId = arguments?.getInt(KEY_ID,id)
+            if(taskIsComplete != null && taskId != null){
+                task.isCompleted =true
+            }
 
             fragmentViewModel.saveUpdate(task)
 

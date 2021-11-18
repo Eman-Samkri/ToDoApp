@@ -39,11 +39,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_recycler_Id"
-        android:layout_width="409dp"
-        android:layout_height="605dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="410dp"
+        android:layout_height="565dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

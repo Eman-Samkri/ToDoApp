@@ -32,6 +32,8 @@ class TaskListFragment : Fragment() {
     private var task = listOf<Task>()
     val currentDate = Date()
 
+    val args = Bundle()
+
 
     private val taskListViewModel by lazy { ViewModelProvider(this).get(TaskListViewModel::class.java) }
 
@@ -102,8 +104,6 @@ class TaskListFragment : Fragment() {
 
                 updateUI(task)
 
-                swapItem()
-
                 val taskWork = arguments?.getInt(KEY_WORK,1)
                 val taskPersonal = arguments?.getString(KEY_PERSONAL)
                 val taskHealth = arguments?.getString(KEY_HEALTH)
@@ -130,7 +130,7 @@ class TaskListFragment : Fragment() {
 
             }
         )
-
+        swapItem()
 
     }
 
@@ -158,10 +158,8 @@ class TaskListFragment : Fragment() {
                     }
                     ItemTouchHelper.RIGHT -> {
                         val currentTask = task[viewHolder.adapterPosition]
-                        currentTask.isCompleted = true
 
-                        val args = Bundle()
-                        args.putBoolean(KEY_IS_COMPLETED,true)
+                        args.putString(KEY_IS_COMPLETED,"false")
                         args.putInt(KEY_ID,currentTask.id)
                         val fragment = TaskFragment()
                         fragment.arguments = args

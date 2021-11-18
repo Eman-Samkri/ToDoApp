@@ -3,11 +3,14 @@
 
     <item
         android:id="@+id/HomeFragment"
+        android:icon="@drawable/ic_home_menu"
         android:title="@string/Home_menu" />
     <item
         android:id="@+id/TaskFragment"
+        android:icon="@drawable/ic_add_menu"
         android:title="@string/add_List_menu" />
     <item
         android:id="@+id/TaskListFragment"
+        android:icon="@drawable/ic_menu_icon"
         android:title="@string/List_menu" />
 </menu>
